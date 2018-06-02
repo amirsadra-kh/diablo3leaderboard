@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Diablo3 - An intuitive leaderboard presentation</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
+    <!-- Bootstrap Select CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Scroll to top</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#sample">Sample Leader Board</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#seasonData">Challenge's Highlights</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#sampleImages">Sample Images</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1 class="text-uppercase">
+              <strong>Are you ready for the front end challenge?</strong>
+            </h1>
+            <hr>
+          </div>
+          <div class="col-lg-8 mx-auto">
+            <!-- <p class="text-faded mb-5">I am!</p> -->
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#sample">Show me the sample leader board!</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-default" id="sample">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mx-auto text-left">
+            
+            <h1>Loaded Leaderboards</h1>
+            <p>
+                <span>Season (13 is max) : </span> <input type="text" value="12" id="seasonNumber" /> <a href="#" data-bind="click:reload">Reload</a>
+            </p>
+            <h2 data-bind="visible:LeaderBoardsTmp().length == 0">Loading...</h2>
+            <table style="width:100%" data-bind="visible:LeaderBoardsTmp().length > 0">
+                <thead>
+                    <tr>
+                        <th style="text-align:left">TeamSize</th>
+                        <th style="text-align:left">Player class</th>
+                        <th style="text-align:left">Link for APIs</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach : LeaderBoardsTmp">
+                    <tr>
+                        <td data-bind="text:team_size"></td>
+                        <td data-bind="text:hero_class_string"></td>
+                        <td data-bind="text:ladder.href"></td>
+                        <td>
+                            <a href="#" data-bind="click:$root.GetSeasonData">Get data</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr/>
+            <div class="text-center">
+            <a class="btn btn-light btn-xl js-scroll-trigger" href="#seasonData">Ok, Now take me to the actual thing!</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-warning" id="seasonData">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">At this section, you will see highlights of the challenge!</h2>
+            <hr class="my-4">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <a href="javascript:achievementTableModal()" class="fa fa-4x fa-list-ol text-primary mb-3 sr-icons"></a>
+              <h3 class="mb-3">Top Achievments</h3>
+              <p class="text-muted mb-1">Top players based on their achievement points, their class, paragon level and completion time</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <a href="javascript:top100TableModal()" class="fa fa-4x fa-sitemap text-primary mb-3 sr-icons"></a>
+              <h3 class="mb-3">Top 100 Players</h3>
+              <p class="text-muted mb-0">Segarated list of top 100 players based on their class. Showing their tier (rift level) and completed time.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <a href="javascript:seasonStatsModal()" class="fa fa-4x fa-pie-chart text-primary mb-3 sr-icons"></a>
+              <h3 class="mb-3">Season Status</h3>
+              <p class="text-muted mb-0">Status of the current season based on the players' hero class in comparison with the previous season</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <a href="javascript:seasonTimelineModal()" class="fa fa-4x fa-line-chart text-primary mb-3 sr-icons"></a>
+              <h3 class="mb-3">Seasons Timeline</h3>
+              <p class="text-muted mb-0">Timeline of usage of classes based from the 1st season to the current season</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-0" id="sampleImages">
+      <div class="container-fluid p-0">
+        <div class="row no-gutters popup-gallery">
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Barbarian
+                  </div>
+                  <div class="project-name">
+                    Sample Images
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Crusader
+                  </div>
+                  <div class="project-name">
+                    Sample Images
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Demon Hunter
+                  </div>
+                  <div class="project-name">
+                    Sample Images
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Monk
+                  </div>
+                  <div class="project-name">
+                    Sample Images
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Witch Doctor
+                  </div>
+                  <div class="project-name">
+                    Sample Images
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
+              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Necromancer
+                  </div>
+                  <div class="project-name">
+                    Sample Images
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="bg-dark text-white">
+      <div class="container text-center">
+        <h2 class="mb-4">Free Download at Start Bootstrap!</h2>
+        <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
+      </div>
+    </section> -->
+
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading">Let's Get In Touch!</h2>
+            <hr class="my-4">
+            <p class="mb-5">Do you like what you see? Let's meet up and discuss oppurtunites then!</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto text-center">
+            <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
+            <p>Amir Sadra Khorramizadeh</p>
+            <p>514-629-6118</p>
+          </div>
+          <div class="col-lg-4 mr-auto text-center">
+            <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
+            <p>
+              <a href="mailto:amirsadra@me.com">amirsadra@me.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Achievement Modal -->
+    <div class="modal fade" id="achievementTableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Top Players based on their Achievement Points</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                    <table id="achievementTable"
+                      class="table table-bordered table-active table-responsive">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>Player</th>
+                          <th>Achievment Points</th>
+                          <th>Paragon Level</th>
+                          <th>Class</th>
+                          <th>Completeion Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Rank</th>
+                          <th>Player</th>
+                          <th>Achievement Points</th>
+                          <th>Paragon Level</th>
+                          <th>Class</th>
+                          <th>Completeion Time</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                  </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Cool!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Top 100 Modal -->
+    <div class="modal fade" id="top100TableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Top 100 Players based on their class</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-inline">
+                        <div class="col-sm-4">
+                          <label>Select Class</label>
+                        </div>
+                        <div class="col-sm-6">
+                          <select id="classSelect">
+                            <option value="rift-barbarian">Barbarian</option>
+                            <option value="rift-crusader">Crusader</option>
+                            <option value="rift-dh">Demon Hunter</option>
+                            <option value="rift-monk">Monk</option>
+                            <option value="rift-wd">Witch Doctor</option>
+                            <option value="rift-wizard">Wizard</option>
+                            <option value="rift-necromancer">Necromancer</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="btn btn-success" onclick="javascript:constructTop100Table()">Fetch!</button>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div class="row" id="top100TableHTML">
+                    <div class="col-md-12">
+                    <table id="top100Table"
+                      class="table table-bordered table-active table-responsive">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>Player</th>
+                          <th>Class</th>
+                          <th>Tier</th>
+                          <th>Rift Time</th>
+                          <th>Completed Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Rank</th>
+                          <th>Player</th>
+                          <th>Class</th>
+                          <th>Tier</th>
+                          <th>Rift Time</th>
+                          <th>Completed Time</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Cool!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Season Stats Modal -->
+    <div class="modal fade" id="seasonStatsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Season Stats</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="box-body">
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <button class="btn btn-success" onclick="javascript:showSeasonStats()">Show!</button>
+                  </div>
+                </div>
+                <hr/>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div id="currentChartContainer" style="height: 300px; width: 100%;"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <div id="previousChartContainer" style="height: 300px; width: 100%;"></div>
+                  </div>
+                </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Cool!</button>
+          </div>
+        </div>
+      </div>
+    
+    
+    </div>
+    <!-- Season Timeline Modal -->
+    <div class="modal fade" id="seasonTimelineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="seasonTimelineModal">Seasons Timeline</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div id="seasonTimelineChart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                  </div>
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-dismiss="modal">Cool!</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    
+      
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap-dropdown.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+    <!-- CanvasJS -->
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <!-- Bootstrap Select JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript">
+      $('.selectpicker').selectpicker({
+        });
+  </script>
+
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="Ts/app.js"></script>
+    <script>
+      $(function () {
+      var app = new BlizzData.App();
+      app.GetSeasonsLeaderboarsList(11);//12 is current
+      ko.applyBindings(app);
+      });
+    </script>
+    <script src="js/customJS.js"></script>
+
+  </body>
+
+</html>
